@@ -298,7 +298,9 @@ func (t *twirp) generateImports(file *descriptor.FileDescriptorProto) {
 	t.P(`import `, t.pkgs["strconv"], ` "strconv"`)
 	t.P()
 	// dependency imports
+	t.P(`//lint:ignore SA1019 fix when migrate to Twirp 8`)
 	t.P(`import `, t.pkgs["jsonpb"], ` "github.com/golang/protobuf/jsonpb"`)
+	t.P(`//lint:ignore SA1019 fix when migrate to Twirp 8`)
 	t.P(`import `, t.pkgs["proto"], ` "github.com/golang/protobuf/proto"`)
 	t.P(`import `, t.pkgs["twirp"], ` "github.com/twitchtv/twirp"`)
 	t.P(`import `, t.pkgs["ctxsetters"], ` "github.com/twitchtv/twirp/ctxsetters"`)
