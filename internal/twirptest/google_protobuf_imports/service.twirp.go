@@ -23,8 +23,8 @@ import proto "github.com/golang/protobuf/proto"
 import twirp "github.com/twitchtv/twirp"
 import ctxsetters "github.com/twitchtv/twirp/ctxsetters"
 
-import google_protobuf1 "github.com/golang/protobuf/ptypes/wrappers"
 import google_protobuf "github.com/golang/protobuf/ptypes/empty"
+import google_protobuf1 "github.com/golang/protobuf/ptypes/wrappers"
 
 // Imports only used by utility functions:
 import io "io"
@@ -903,12 +903,7 @@ func doProtobufRequest(ctx context.Context, client HTTPClient, hooks *twirp.Clie
 		return ctx, wrapInternal(err, "failed to do request")
 	}
 
-	defer func() {
-		cerr := resp.Body.Close()
-		if err == nil && cerr != nil {
-			err = wrapInternal(cerr, "failed to close response body")
-		}
-	}()
+	defer func() { _ = resp.Body.Close() }()
 
 	if err = ctx.Err(); err != nil {
 		return ctx, wrapInternal(err, "aborted because context was done")
